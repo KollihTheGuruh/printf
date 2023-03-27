@@ -1,17 +1,18 @@
 #include "main.h"
-
+#include <stdio.h>
 /**
- * print_char - returns the character
- * @buff_dest: buffer
- * @arg: list of arguments
- * @buff_count: index of buffer pointer
- * Return: buffer index
+ * print_chr - writes the character c to stdout
+ * @arguments: input char
+ * @buf: buffer pointer
+ * @ibuf: index for buffer pointer
+ * Return: On success 1.
  */
-int print_char(char *buff_dest, va_list arg, int buff_count)
+int print_chr(va_list arguments, char *buf, unsigned int ibuf)
 {
-	char c = va_arg(arg, int);
+	char c;
 
-	buff_dest[buff_count] = c;
+	c = va_arg(arguments, int);
+	handl_buf(buf, c, ibuf);
 
-	return (++buff_count);
+	return (1);
 }
