@@ -1,4 +1,4 @@
-#include "main.h"
+#include <main.h>
 
 /**
  * print_R13 - substitute %R by argument number in rot13
@@ -10,24 +10,34 @@
 int print_R13(char *buff_dest, va_list arg, int buff_count)
 {
 	char *str;
-	char *keys = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	char *keynew = "nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM";
-	int i, j = 0;
+	char keys[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	char keynew[] = "nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM";
+	int i, j;
 
 	str = va_arg(arg, char *);
-	while (str[j])
+	for (j = 0; str[j]; j++)
 	{
-		for (i = 0; keys[i]; i++)
+		if (isalpha(str[j]))
 		{
-			if (str[j] == keys[i])
+			for (i = 0; keys[i]; i++)
 			{
-				buff_dest[buff_count] = keynew[i];
-				break;
+				if (str[j] == keys[i])
+				{
+					buff_dest[buff_count] = keynew[i];
+					break;
+				}
 			}
+			if (!keys[i])
+			{
+				buff_dest[buff_count] = str[j];
+			}
+		}
+		else
+		{
 			buff_dest[buff_count] = str[j];
 		}
-		j++, buff_count++;
+		buff_count++;
 	}
 
-	return (buff_count);
+	return buff_count;
 }
