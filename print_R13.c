@@ -39,5 +39,5 @@ int print_R13(char *buff_dest, va_list arg, int buff_count)
 		buff_count++;
 	}
 
-	return buff_count;
+	return (buff_count);
 }
