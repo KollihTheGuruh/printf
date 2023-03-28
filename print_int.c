@@ -1,45 +1,35 @@
 #include "main.h"
 
 /**
- * print_int - substitute %i by argument number
- * @buff_dest: string to change
- * @arg: va_list arg to change
- * @buff_count: index of dst where the c of %c is
- * Return: New index
+ * print_binary - prints an unsigned int as a binary number
+ * @format: format to print the string
+ * @args: va_list that contains an unsigned int to print
+ * Return: number of characters printed
  */
-int print_int(char *buff_dest, va_list arg, int buff_count)
+int print_binary(char *format, va_list args)
 {
-	int tens = 1;
-	unsigned int tmp;
-	int number;
+	unsigned int number = va_arg(args, unsigned int);
+	char *binary;
+	int i, size = sizeof(int) * 8, count = 0;
+	(void)format;
 
-	number = va_arg(arg, int);
-
-	if (number < 0)
+	if (number == 0)
+		return (_putchar('0'));
+	binary = malloc(size);
+	if (!binary)
+		return (-1);
+	for (i = size - 1; i >= 0; i--)
 	{
-		buff_dest[buff_count] = '-';
-		number *= -1;
-		buff_count++;
+		binary[i] = number % 2 + '0';
+		number /= 2;
 	}
-	tmp = number;
-
-	if (number == INT_MIN)
-		tmp++;
-
-	while (tmp > 9)
+	for (i = 0; i < size && binary[i] == '0'; i++)
+		;
+	for (; i < size; i++)
 	{
-		tens *= 10;
-		tmp /= 10;
+		_putchar(binary[i]);
+		count++;
 	}
-
-	tmp = number;
-	while (tens > 0)
-	{
-		buff_dest[buff_count] = ('0' + tmp / tens);
-		tmp %= tens;
-		tens /= 10;
-		buff_count++;
-	}
-
-	return (buff_count);
+	free(binary);
+	return (count);
 }
