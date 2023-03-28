@@ -1,18 +1,16 @@
 #include "main.h"
-#include <stdio.h>
+
 /**
- * print_chr - writes the character c to stdout
- * @arguments: input char
- * @buf: buffer pointer
- * @ibuf: index for buffer pointer
- * Return: On success 1.
+ * printf_char - prints a binary number
+ * @args: the arguements to use
+ * @printed: the printed characters
+ * Return: printed charcaters
  */
-int print_chr(va_list arguments, char *buf, unsigned int ibuf)
+
+int printf_char(va_list args, int printed)
 {
-	char c;
+	int character = va_arg(args, int);
 
-	c = va_arg(arguments, int);
-	handl_buf(buf, c, ibuf);
-
-	return (1);
+	_putchar(character);
+	return (printed + 1);
 }
