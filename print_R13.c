@@ -1,33 +1,33 @@
 #include "main.h"
 
 /**
- * print_R13 - substitute %R by argument number in rot13
- * @buff_dest: string to change
- * @arg: va_list char to change
- * @buff_count: index of dst where the R of %R is
- * Return: New index
+ * print_rot13 - prints a number that is rot13'ed
+ * @format: format to print number
+ * @args: va_list that contains the number to print
+ * Return: number of characters printed
  */
-int print_R13(char *buff_dest, va_list arg, int buff_count)
+int print_rot13(char *format, va_list args)
 {
-	char *str;
-	char *keys = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	char *keynew = "nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM";
-	int i, j = 0;
+	char *string = va_arg(args, char *);
+	int i, count = 0;
+	int char_i;
+	char input[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+	char output[] = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
+	(void)format;
 
-	str = va_arg(arg, char *);
-	while (str[j])
+	for (i = 0; string[i] != '\0'; i++)
 	{
-		for (i = 0; keys[i]; i++)
+		for (char_i = 0; input[char_i] != '\0'; char_i++)
 		{
-			if (str[j] == keys[i])
+			if (string[i] == input[char_i])
 			{
-				buff_dest[buff_count] = keynew[i];
+				_putchar(output[char_i]);
 				break;
 			}
-			buff_dest[buff_count] = str[j];
 		}
-		j++, buff_count++;
+		if (input[char_i] == '\0')
+			_putchar(string[i]);
+		count++;
 	}
-
-	return (buff_count);
+	return (count);
 }
